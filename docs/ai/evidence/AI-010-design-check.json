@@ -1,0 +1,70 @@
+{
+  "task": "AI-010",
+  "date": "2026-10-15",
+  "project": "D:\\大三\\数据库\\project1",
+  "checks": {
+    "localLinks": 47,
+    "anchors": 13,
+    "jsonSamples": 2,
+    "requirementsDefined": 29,
+    "decisionsDefined": 18,
+    "newPlannedTests": 14,
+    "fencesBalanced": true,
+    "publishedVersionSeparatedFromDraft": true,
+    "oldPolicyIndexScopePreserved": true,
+    "oldAiLogPrefixUnchanged": true
+  },
+  "oldAiLogPrefixBytes": 12713,
+  "oldAiLogPrefixSha256": "60d054ea324c9364ff188816e00affa0fa20ba38faa7094a038a3dacea8198e8",
+  "protectedSha256": {
+    "大作业一.docx": "4622b0914d21a123a61d4a30edc470a5e03680891045b49a2e4e67ed184d62c9",
+    "database/init-schema.js": "89a3ed2163c71bb01ec9c93b651d8d23ff638173a812d76594cf1545e213bc94",
+    "database/examples.js": "c8937647eb8a7feb5e06939d1d4d638f4854383e27f1686e23c0a9343bfc223f",
+    "database/verify-schema.js": "d000502e0a45d75c6d0b44b21666ac394d02cc863ed3f74fbf15a1bf66205651",
+    "docs/schema-verification.md": "47d352444640b2612fb4fe4938b13fae41ef3c7dbe41afa87c9bfa667fe9f29e",
+    "docs/platform-research.md": "3d5befb582a12418ea8bda3cb8586ee89b2fb1f06c95d11ad7ee18651e63b035",
+    "docs/ai/README.md": "cb85ead013e5c16b28c2d413aa0bf4523b6c2567e5cfaf717059a55621b2212b",
+    "docs/ai/conversations/AI-009-user-prompt.md": "eedc5f29eb37d616a509897e011fb780adbcc921594968e43e5398b6bfa4aa16",
+    "docs/ai/evidence/AI-009-design-check.json": "697aca6ffabfb18f5fbaa350b44f2ba4341655121598e6529a488478c022c74c",
+    "migration-manifest.json": "3ac8f84728a9b3a16ea2409057e827ad3aa403cf1b1197cc1e8756f4df919b13",
+    ".gitignore": "a0d953997e522d521e8e471f8eec4975c1c91c08a06dda645a50fd0ec5e43c42"
+  },
+  "preconditions": {
+    "docs/requirements.md": "fd78e03fdaa6c99ca5303d34779cb6fd03572630ae146442e3d03724220bc160",
+    "docs/decisions.md": "3b2dacb9b37287b720cb484cc412902e45410c08436fb0abbeb86e65f2be1206",
+    "docs/database-design.md": "66098dbb745ff4534fc50c01c9265218b8ca4a178e16cbcb6c6d5ff6c4f9c0b6",
+    "docs/system-design.md": "e2e256f384145a6a96ac123c98f2a40f23cbbc0acc509c23f4efbcc26cdf9bce",
+    "README.md": "60fda589b75d8e162a2c1cee089e2e4233bbae59265a7d51b7a22c93fa6765b4",
+    "docs/versioning-change-plan.md": null,
+    "docs/test-plan.md": null,
+    "docs/ai/usage-log.md": "60d054ea324c9364ff188816e00affa0fa20ba38faa7094a038a3dacea8198e8",
+    "docs/ai/conversations/AI-010-user-prompt.md": null
+  },
+  "artifactSha256": {
+    "docs/requirements.md": "a20c19fc1d10cca2282a906d6d079decafa78752d4d674a6cf90418359ce4026",
+    "docs/decisions.md": "e1cae5b86f10e039a2878d5d095f5833a4af5511b14f12718ee0b054b128acd1",
+    "docs/database-design.md": "4a577f8413623e83af2fb7392ba64dae7a2cb3573437adee72903b0ba2a57956",
+    "docs/system-design.md": "de600a15efed05a2f31a2df791fafe9ef33a46325de418beb31ca83997d77cea",
+    "README.md": "8690451075413cba8bb9fa2fd9f01a3f53fc0beefbf8e47881d26e4f28281c90",
+    "docs/versioning-change-plan.md": "d82c6427b140af5e3fb90bbca913c4d235f838e5e7e7d8156a6c3afacdf3268f",
+    "docs/test-plan.md": "e3519b1c67d72f74561fcb641b3679b83a7291023be701f5e44cdb3a72247081",
+    "docs/ai/usage-log.md": "8ccfc5fea98d04716e1728bbe7d07f8a86ea1e6a63fc630a881076aa18786d6c",
+    "docs/ai/conversations/AI-010-user-prompt.md": "ca9ff40bb046de7f20101f5171bbac7ab93b3450c30880b259ea1f6124ab5372"
+  },
+  "databaseOrBusinessTestsExecuted": false,
+  "migrationExecuted": false,
+  "deploymentVerified": true,
+  "protectedInputsUnchanged": true,
+  "writtenFiles": [
+    "docs/requirements.md",
+    "docs/decisions.md",
+    "docs/database-design.md",
+    "docs/system-design.md",
+    "README.md",
+    "docs/versioning-change-plan.md",
+    "docs/test-plan.md",
+    "docs/ai/usage-log.md",
+    "docs/ai/conversations/AI-010-user-prompt.md",
+    "docs/ai/evidence/AI-010-design-check.json"
+  ]
+}

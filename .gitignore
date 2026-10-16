@@ -1,0 +1,10 @@
+# Local disposable database files and process logs
+.local/
+
+# Application dependencies, build output and local secrets
+node_modules/
+**/dist/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo

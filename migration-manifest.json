@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-15",
+  "source": "C:\\Users\\37905\\Documents\\ChatGPT\\数据管理系统",
+  "destination": "D:\\大三\\数据库\\project1",
+  "fileCount": 29,
+  "files": [
+    {
+      "relativePath": "docs\\database-design.md",
+      "sha256": "66098DBB745FF4534FC50C01C9265218B8CA4A178E16CBCB6C6D5FF6C4F9C0B6",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\decisions.md",
+      "sha256": "3B2DACB9B37287B720CB484CC412902E45410C08436FB0ABBEB86E65F2BE1206",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\platform-research.md",
+      "sha256": "3D5BEFB582A12418EA8BDA3CB8586EE89B2FB1F06C95D11AD7EE18651E63B035",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\requirements.md",
+      "sha256": "FD78E03FDAA6C99CA5303D34779CB6FD03572630AE146442E3D03724220BC160",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\schema-verification.md",
+      "sha256": "47D352444640B2612FB4FE4938B13FAE41EF3C7DBE41AFA87C9BFA667FE9F29E",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\ai\\README.md",
+      "sha256": "CB85EAD013E5C16B28C2D413AA0BF4523B6C2567E5CFAF717059A55621B2212B",
+      "verified": true
+    },
+    {
+      "relativePath": "docs\\ai\\usage-log.md",
+      "sha256": "E601F595C67687A71997D6FB67CFDB5BE57457226A89B15A8DDF6B8EA7968F1E",
+      "verified": true
+    },
+    {
+      "relativePath": "database\\examples.js",
+      "sha256": "C8937647EB8A7FEB5E06939D1D4D638F4854383E27F1686E23C0A9343BFC223F",
+      "verified": true
+    },
+    {
+      "relativePath": "database\\init-schema.js",
+      "sha256": "89A3ED2163C71BB01EC9C93B651D8D23FF638173A812D76594CF1545E213BC94",
+      "verified": true
+    },
+    {
+      "relativePath": "database\\verify-schema.js",
+      "sha256": "D000502E0A45D75C6D0B44B21666AC394D02CC863ED3F74FBF15A1BF66205651",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image1.png",
+      "sha256": "C4DAC81E9817D7389AABF6720EE5B1D8B362E98436C4176718E0CA428C41B025",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image10.png",
+      "sha256": "BF514E3F2104067444D753A24E265F2B16D74D638A59CD44EE9CC2D8C20F2CF5",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image11.png",
+      "sha256": "80A8DD8277AEA19061C4C6EE5EEBB94258EDF8631484B2AF3B078BD125AC9D74",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image12.png",
+      "sha256": "35C07B4C82109B5C4C6AB27EBD076EBDE937E76ABA2F220CD30699F3BB46249B",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image13.png",
+      "sha256": "1281843703098EEABAEA96AE8E23A20ABC656B7C7F132EE2558A9F41AB45A1BD",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image14.png",
+      "sha256": "405290331771DF96D78D930C8BBE43BC9096CF340AE057E683D72465DE8A28EA",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image15.png",
+      "sha256": "7954F49E68CFC48701291C8B182A3CFE12B1F97FCD845DF4FAAEFD52A8768930",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image16.png",
+      "sha256": "98D68557BAAB364FF77715D431DFC69E3283F75682102D1AEC57A8DB358955A3",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image17.png",
+      "sha256": "16DD91B161A9CC881B0F79CC963E493DEB0D959513C3B84765D8B112C806804B",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image2.png",
+      "sha256": "2416C12E3943DFFEC154C5938AC3234160A0A80DBD1D13E840AC53C7148D535B",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image3.png",
+      "sha256": "FFF92F5775770126EFA8DC26FBE127EAA1381C67BD52D1FF0EC15EC478B68488",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image4.png",
+      "sha256": "43F5A16F26F682F748017317524A2746F634CAA66BACD27F207D3D168A21B9D8",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image5.png",
+      "sha256": "F04BF4826B1AC3298F3118F19EB54F641C34467CBD98154F57D6C0D96AA25634",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image6.png",
+      "sha256": "204F5031390F22BFC31BFE280355AA926D48A906EA20AD903D6ABA9AB0FA8C70",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image7.png",
+      "sha256": "160EE90FCEF104E2EF754A92824433B268BA23A9685FA476267751B483E954CE",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image8.png",
+      "sha256": "3A5A25CAC35D40B7C075AE6AFCCE8BE5BDB74FF77BDA47F2767294539A13D2FD",
+      "verified": true
+    },
+    {
+      "relativePath": "docx_extract\\image9.png",
+      "sha256": "06ED7C0DCE426A9DB01ABBF8D9B95011A2DBDB4ED605AB04AFD7F20ECCB50278",
+      "verified": true
+    },
+    {
+      "relativePath": ".gitignore",
+      "sha256": "A0D953997E522D521E8E471F8EEC4975C1C91C08A06DDA645A50FD0EC5E43C42",
+      "verified": true
+    },
+    {
+      "relativePath": "README.md",
+      "sha256": "5DFA9866B71ADA909E6BC97126098356BD2FA3DF3286F2D4FA74D66FEA9A0238",
+      "verified": true
+    }
+  ],
+  "retainedAtSource": [
+    ".git",
+    ".local"
+  ],
+  "originalAssignmentUnchanged": true
+}

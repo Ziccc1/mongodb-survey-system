@@ -1,0 +1,34 @@
+{
+  "name": "project1-survey",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0 <23",
+    "npm": ">=10 <11"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "configure": "node scripts/configure.mjs",
+    "db:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-mongo.ps1",
+    "db:init": "node --env-file=.env --import tsx scripts/init-db.ts",
+    "dev:api": "node --env-file=.env --import tsx --watch apps/api/src/main.ts",
+    "dev:web": "npm run dev -w @survey/web",
+    "typecheck": "npm run build -w @survey/shared && npm run typecheck -w @survey/api && npm run typecheck -w @survey/web",
+    "build": "npm run build -w @survey/shared && npm run build -w @survey/api && npm run build -w @survey/web",
+    "start": "node --env-file=.env apps/api/dist/main.js",
+    "test": "npm run test:integration",
+    "test:integration": "node --env-file=.env --import tsx --test --test-concurrency=1 tests/integration.test.ts",
+    "test:e2e": "node --env-file=.env --import tsx tests/browser.ts",
+    "test:editor": "node --env-file=.env --import tsx tests/editor.ts"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "tsx": "4.23.15",
+    "@types/node": "22.20.5",
+    "@playwright/test": "1.64.1"
+  }
+}
