@@ -1,0 +1,10 @@
+import {spawn} from 'node:child_process';
+import {mkdirSync,createWriteStream,writeFileSync} from 'node:fs';
+const commands={pagination:["--env-file=.env","--import","tsx","tests/phase1/pagination.ts"],edges:['--env-file=.env','--import','tsx','tests/phase1/edges.ts'],regression:['--env-file=.env','--import','tsx','tests/phase1/regression.ts'],publish:['--env-file=.env','--import','tsx','tests/phase1/publish.ts'],flow:['--env-file=.env','--import','tsx','tests/phase1/flow.ts'],submit:['--env-file=.env','--import','tsx','tests/phase1/submit.ts'],statistics:['--env-file=.env','--import','tsx','tests/phase1/statistics.ts'],browser:['--env-file=.env','--import','tsx','tests/phase1/browser.ts']};
+const name=process.argv[2];if(!(name in commands))throw Error('Known phase test name required');
+const directory=`docs/testing/runs/${new Date().toISOString().replace(/[:.]/g,'-')}-${name}`;mkdirSync(directory,{recursive:true});
+const log=createWriteStream(`${directory}/output.log`),start=new Date().toISOString();
+const child=spawn(process.execPath,commands[name],{stdio:['ignore','pipe','pipe'],env:process.env});
+for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>{process.stdout.write(chunk);log.write(chunk);});
+child.on('error',error=>{log.write(String(error));});
+child.on('close',code=>{log.end();writeFileSync(`${directory}/result.json`,JSON.stringify({name,start,finished:new Date().toISOString(),command:['node',...commands[name]],exitCode:code,status:code===0?'passed':'failed'},null,2));console.log(`Actual output retained: ${directory}`);process.exitCode=code??1;});

@@ -1,6 +1,6 @@
 # 第一阶段 MongoDB Schema 设计
 
-设计日期：2026-10-15，按本轮正式修改规则修订。依据：requirements.md R01—R29、decisions.md 当前 D06 与 D13—D18。目标为三核心集合加 survey_versions；本文是目标 Schema，现有 init-schema.js 仍是旧三集合验证器，尚未升级。0.1.0已在新专用库实现四集合验证器、索引及账号/草稿/Q04/Q05编辑业务，新入口为npm run db:init（apps/api/src/database/）；旧库迁移及发布/答卷/统计业务未实现，不能仅运行旧脚本得到下述能力。详见[实现边界](implementation-verification.md)。
+设计日期：2026-10-15，按本轮正式修改规则修订。依据：requirements.md R01—R29、decisions.md 当前 D06 与 D13—D18。目标为三核心集合加 survey_versions；本文是目标 Schema，现有 init-schema.js 仍是旧三集合验证器，尚未升级。1.0.0已在专用库实现四集合验证器、索引及账号/草稿/Q04/Q05编辑业务，新入口为npm run db:init（apps/api/src/database/）；第一阶段发布/答卷/统计已实现，未知旧库迁移尚未执行，不能仅运行旧脚本得到下述能力。详见[实现边界](implementation-verification.md)。
 
 ## 1 集合与关系
 
@@ -206,7 +206,7 @@ Schema 验证器不会自动实现外键、所有权、题目引用、规则方�
 
 ## 13 survey_versions 字段
 
-这是待落地的新集合设计，不表示已创建；一个文档是一份完整不可变发布快照。
+新库已经按该结构保存发布快照；一个文档是一份完整不可变发布快照。
 
 | 字段 | BSON 类型 | 规则 |
 | --- | --- | --- |

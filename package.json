@@ -1,7 +1,7 @@
 {
   "name": "project1-survey",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=22.12.0 <23",
@@ -23,7 +23,9 @@
     "test": "npm run test:integration",
     "test:integration": "node --env-file=.env --import tsx --test --test-concurrency=1 tests/integration.test.ts",
     "test:e2e": "node --env-file=.env --import tsx tests/browser.ts",
-    "test:editor": "node --env-file=.env --import tsx tests/editor.ts"
+    "test:editor": "node --env-file=.env --import tsx tests/editor.ts",
+    "test:phase1": "node scripts/run-check.mjs publish && node scripts/run-check.mjs flow && node scripts/run-check.mjs submit && node scripts/run-check.mjs statistics && node scripts/run-check.mjs edges && node scripts/run-check.mjs pagination && node scripts/run-check.mjs browser",
+    "test:regression": "node scripts/run-check.mjs regression"
   },
   "devDependencies": {
     "typescript": "5.9.3",

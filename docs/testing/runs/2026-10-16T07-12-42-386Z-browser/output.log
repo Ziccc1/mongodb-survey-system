@@ -1,0 +1,11 @@
+Independent retained database: project1_test_phasebrowser_1792134763279
+PASS browser register/login/create/edit four actual question types and jump configuration
+PASS creator preview skips mandatory branch, rejects fractional/letter phone and writes no answer/count
+PASS share link requires login and registration/login returns to intended questionnaire
+PASS browser return/change clears invalid branch and newly reachable required fields are rechecked
+PASS real HTTP response dropped after server commit: manual same-key retry returns success with exactly one response/count
+PASS browser statistics and history show exact phone, actual four answers and anonymous status
+PASS pause/edit/republish keeps ID/link/v1 answers; latest empty v2 and selected v1 statistics stay separate
+PASS version history view, old-version new submit rejected, closed successful request replay and unavailable page
+Screenshots retained: docs/testing/screenshots/1792134764572
+BROWSER CORE WORKFLOW PASSED

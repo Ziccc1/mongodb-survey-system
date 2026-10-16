@@ -20,10 +20,10 @@ const consoleErrors: string[] = []; page.on('pageerror', error => consoleErrors.
 const password = `Browser-${randomUUID()}`, username = `browser_${Date.now()}`, title = '校园自习空间使用调查';
 const baseUrl = config.origin;
 try {
-  await page.goto(`${baseUrl}/surveys`); await page.waitForURL('**/login');
+  await page.goto(`${baseUrl}/surveys`); await page.waitForURL(/\/login(?:\?next=.*)?$/);
   await page.getByRole('link', { name: '注册账号', exact: true }).click();
   await page.getByLabel('用户名', { exact: true }).fill(username); await page.getByLabel('密码', { exact: true }).fill(password);
-  await page.getByRole('button', { name: '创建账号', exact: true }).click(); await page.waitForURL('**/login?registered=1');
+  await page.getByRole('button', { name: '创建账号', exact: true }).click(); await page.waitForURL(/\/login\?registered=1(?:&next=.*)?$/);
   await page.getByLabel('用户名', { exact: true }).fill(username); await page.getByLabel('密码', { exact: true }).fill(password);
   await page.getByRole('button', { name: '登录', exact: true }).click(); await page.waitForURL('**/surveys');
   await page.getByRole('heading', { name: '还没有问卷' }).waitFor();
@@ -47,9 +47,9 @@ try {
   await page.setViewportSize({ width: 320, height: 900 });
   await page.screenshot({ path: '.local/evidence/list-mobile.png', fullPage: true });
   await page.keyboard.press('Tab'); assert.ok(await page.evaluate(() => document.activeElement?.tagName !== 'BODY'));
-  assert.equal(await page.getByRole('button', { name: /发布|编辑|统计/ }).count(), 0);
-  await page.getByRole('button', { name: '退出登录', exact: true }).click(); await page.waitForURL('**/login');
-  await page.goto(detailUrl); await page.waitForURL('**/login');
+  assert.equal(await page.getByRole('button', { name: /复制问卷|断点恢复|自动保存/ }).count(), 0);
+  await page.getByRole('button', { name: '退出登录', exact: true }).click(); await page.waitForURL(/\/login(?:\?next=.*)?$/);
+  await page.goto(detailUrl); await page.waitForURL(/\/login(?:\?next=.*)?$/);
   await page.getByLabel('用户名', { exact: true }).fill(username); await page.getByLabel('密码', { exact: true }).fill('wrong-password');
   await page.getByRole('button', { name: '登录', exact: true }).click(); await page.getByRole('alert').filter({ hasText: '用户名或密码错误' }).waitFor();
   assert.deepEqual(consoleErrors, []);

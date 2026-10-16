@@ -1,3 +1,7 @@
+import { registerReporting } from "./core/reporting.js";
+import { registerSubmission } from "./core/submission.js";
+import { registerPublication } from './core/publication.js';
+import type { FaultHooks } from './core/common.js';
 import { loadEditor, registerEditingRoutes } from './survey-editing.js';
 import Fastify from 'fastify';
 import cookie from '@fastify/cookie';
@@ -16,7 +20,7 @@ import { userDto, editorDto, summaryDto } from './dto.js';
 import { ApiError, invalid } from './errors.js';
 import { hashPassword, verifyPassword, signAuth, readAuth, encodeCursor, decodeCursor, parseUniqueJson } from './security.js';
 
-export async function buildApp(config: Config, options: { logger?: boolean } = {}) {
+export async function buildApp(config: Config, options: { logger?: boolean; faults?: FaultHooks } = {}) {
   const app = Fastify({ logger: options.logger ?? true, bodyLimit: 2097152, genReqId: () => randomUUID(), ajv: { customOptions: { removeAdditional: false, coerceTypes: false, useDefaults: false } } });
   const client = new MongoClient(config.uri, { serverSelectionTimeoutMS: 3000 });
   await client.connect(); const db = client.db(config.dbName); await verifySchema(db);
@@ -36,8 +40,12 @@ export async function buildApp(config: Config, options: { logger?: boolean } = {
     if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method) && (request.headers.origin !== config.origin || request.headers['x-csrf-guard'] !== '1')) throw new ApiError(403, 'CSRF_REJECTED', '请求来源校验失败');
     const url = new URL(request.url, config.origin), keys = [...url.searchParams.keys()];
     if (new Set(keys).size !== keys.length) throw invalid();
-    if (url.pathname !== '/api/v1/surveys' || request.method !== 'GET') { if (keys.length) throw invalid(); }
-    else if (keys.some(key => !['limit', 'cursor'].includes(key))) throw invalid();
+    const pathname=url.pathname;
+    const paged = pathname === "/api/v1/surveys" || /^\/api\/v1\/surveys\/[^/]+\/versions$/.test(pathname);
+    const versionPaged = /^\/api\/v1\/surveys\/[^/]+\/(responses|questions\/[^/]+\/answers)$/.test(pathname);
+    const statistics = /^\/api\/v1\/surveys\/[^/]+\/(statistics|questions\/[^/]+\/statistics)$/.test(pathname);
+    const allowedQuery = request.method !== "GET" ? [] : paged ? ["limit","cursor"] : versionPaged ? ["version","limit","cursor"] : statistics ? ["version"] : [];
+    if (keys.some(key => !allowedQuery.includes(key))) throw invalid();
     if (['GET', 'HEAD'].includes(request.method) && (Number(request.headers['content-length'] ?? 0) > 0 || request.headers['transfer-encoding'])) throw invalid();
     if (request.url.split('?')[0] === '/api/v1/auth/logout' && (Number(request.headers['content-length'] ?? 0) > 0 || request.headers['transfer-encoding'])) throw invalid();
   });
@@ -123,6 +131,9 @@ export async function buildApp(config: Config, options: { logger?: boolean } = {
     return { data: await loadEditor(db, survey) };
   });
   registerEditingRoutes(app, db, surveys, auth);
+  registerPublication(app, db, client, auth, config, options.faults);
+  registerSubmission(app, db, client, auth, options.faults);
+  registerReporting(app, db, client, auth, config);
   app.get('/api/v1/health/live', async () => ({ data: { status: 'live' } }));
   app.get('/api/v1/health/ready', async () => {
     try { const hello = await db.admin().command({ hello: 1 }); if (!hello.isWritablePrimary || hello.setName !== 'rs0') throw new Error('Not ready'); await verifySchema(db); }
@@ -135,7 +146,16 @@ export async function buildApp(config: Config, options: { logger?: boolean } = {
     if (request.url.startsWith('/api/')) {
       const path = request.url.split('?')[0];
       const methods: Record<string, string[]> = { '/api/v1/auth/register': ['POST'], '/api/v1/auth/login': ['POST'], '/api/v1/auth/me': ['GET'], '/api/v1/auth/logout': ['POST'], '/api/v1/surveys': ['GET', 'POST'], '/api/v1/health/live': ['GET'], '/api/v1/health/ready': ['GET'] };
-      const allowed = methods[path] ?? (/^\/api\/v1\/surveys\/[^/]+$/.test(path) ? ['GET','PATCH'] : /^\/api\/v1\/surveys\/[^/]+\/questions$/.test(path) ? ['PUT'] : undefined);
+      const coreMethods: [RegExp,string[]][] = [
+        [/^\/api\/v1\/surveys\/[^/]+$/,['GET','PATCH']],
+        [/^\/api\/v1\/surveys\/[^/]+\/questions$/,['PUT']],
+        [/^\/api\/v1\/surveys\/[^/]+\/(publish|pause|close|copy)$/,['POST']],
+        [/^\/api\/v1\/surveys\/[^/]+\/(versions|responses)(\/[^/]+)?$/,['GET']],
+        [/^\/api\/v1\/surveys\/[^/]+\/(statistics|questions\/[^/]+\/(statistics|answers))$/,['GET']],
+        [/^\/api\/v1\/public\/surveys\/[^/]+$/,['GET']],
+        [/^\/api\/v1\/public\/surveys\/[^/]+\/responses$/,['POST']],
+      ];
+      const allowed = methods[path] ?? coreMethods.find(([pattern])=>pattern.test(path))?.[1];
       if (allowed && !allowed.includes(request.method)) { reply.header('Allow', allowed.join(', ')); throw new ApiError(405, 'METHOD_NOT_ALLOWED', '该接口不支持此方法'); }
       throw new ApiError(404, 'NOT_FOUND', '资源不存在或不可访问');
     }

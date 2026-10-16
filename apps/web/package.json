@@ -1,7 +1,7 @@
 {
   "name": "@survey/web",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host localhost --port 5173 --strictPort",
@@ -9,7 +9,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@survey/shared": "0.1.0",
+    "@survey/shared": "1.0.0",
     "vue": "3.5.44",
     "vue-router": "4.6.4"
   },

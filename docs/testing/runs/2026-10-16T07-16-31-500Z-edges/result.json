@@ -1,0 +1,14 @@
+{
+  "name": "edges",
+  "start": "2026-10-16T07:16:31.501Z",
+  "finished": "2026-10-16T07:16:33.145Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/edges.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

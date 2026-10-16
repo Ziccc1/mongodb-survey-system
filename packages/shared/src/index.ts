@@ -1,3 +1,5 @@
+export * from "./answers.js";
+export * from './core-types.js';
 import type { Question } from './questions.js';
 export * from './questions.js';
 export interface User { id: string; username: string; createdAt: string }
@@ -19,7 +21,7 @@ export interface Editor {
   validationIssues: DefinitionIssue[]; capabilities: { copySurvey: boolean };
 }
 export interface Page<T> { items: T[]; nextCursor: string | null }
-export interface ApiErrorDetail { field?: string; reason?: string; questionId?: string; expectedRevision?: number }
+export interface ApiErrorDetail { field?: string; reason?: string; questionId?: string; expectedRevision?: number; expectedPublishedVersion?: number; reloadRequired?: boolean }
 export interface ApiErrorBody { error: { code: string; message: string; details: ApiErrorDetail[]; traceId: string } }
 export interface SaveResult { revision: number; draftDefinitionRevision: number; hasUnpublishedChanges: boolean; validationIssues: DefinitionIssue[] }
 export interface PatchSurvey extends Partial<CreateSurvey> { expectedRevision: number }

@@ -6,6 +6,8 @@ import type { Editor, CreateSurvey, Question, QuestionType, SaveResult } from '@
 import { api, RequestError } from '../api';
 import MetadataEditor from '../components/MetadataEditor.vue';
 import QuestionCard from '../components/QuestionCard.vue';
+import PublicationPanel from '../components/PublicationPanel.vue';
+const publicationLocked = ref(false);
 const route = useRoute(), router = useRouter(), survey = ref<Editor | null>(null), metadata = ref<CreateSurvey>({ title: '' }), questions = ref<Question[]>([]);
 const loading = ref(true), busy = ref(false), error = ref(''), notice = ref(''), blocked = ref(false), remote = ref<Editor | null>(null);
 const baselineMetadata = ref(''), baselineQuestions = ref('');
@@ -33,7 +35,7 @@ async function inspectRemote() {
   try { remote.value = await api<Editor>(url.value); } catch (e) { error.value = `本地编辑已保留，读取服务器版本失败：${(e as Error).message}`; }
 }
 async function save(section: 'metadata' | 'questions') {
-  if (!survey.value || busy.value || blocked.value) return;
+  if (!survey.value || busy.value || blocked.value || publicationLocked.value) return;
   if (section === 'questions' && checks.value.errors.length) return;
   if (section === 'metadata' && surveyTextIssues(metadata.value).length) return;
   busy.value = true; error.value = ''; notice.value = '';
@@ -80,13 +82,14 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', beforeUnload));
   <template v-if="survey && !loading"><div class="page-heading"><div><p class="eyebrow">问卷编辑</p><h1 tabindex="-1">{{ survey.draftDefinition.title }}</h1><p class="muted">基本信息和题目分别保存，不会自动保存。</p></div><span class="badge">{{ survey.status === 'draft' ? '未发布草稿' : survey.status === 'paused' ? '已暂停' : survey.status === 'published' ? '收集中' : '已关闭' }}</span></div>
   <p v-if="notice" class="saved" role="status">{{ notice }}</p>
   <section v-if="blocked" class="conflict panel" aria-labelledby="conflict-heading"><h2 id="conflict-heading">先比较服务器版本，本地编辑已保留</h2><p>不会自动覆盖或重试保存。请比较后选择如何继续。</p><template v-if="remote"><p>服务器修订 {{ remote.revision }}；{{ remote.draftDefinition.title }}，共 {{ remote.draftDefinition.questions.length }} 题。</p><details><summary>查看服务器内容</summary><pre>{{ JSON.stringify({ metadata: metaFrom(remote), questions: remote.draftDefinition.questions }, null, 2) }}</pre></details><div class="editor-actions"><button type="button" class="secondary" @click="keepLocal">已比较，保留本地并采用最新修订号</button><button type="button" class="quiet" @click="useRemote">放弃本地并采用服务器版本</button></div></template><button v-else class="secondary" @click="inspectRemote">重新读取服务器版本</button></section>
-  <MetadataEditor :model="metadata" :survey="survey" :busy="busy" :blocked="blocked" :dirty="metadataDirty" @save="save('metadata')" />
-  <section class="question-section"><h2>题目 <span class="muted">{{ questions.length }} / 100</span></h2><p v-if="!editable" class="muted">当前状态不能编辑题目；暂停后才可修改。本轮未开放暂停操作。</p>
+  <PublicationPanel :survey="survey" :dirty="dirty" @changed="load" @locked="publicationLocked = $event" />
+  <MetadataEditor :model="metadata" :survey="survey" :busy="busy || publicationLocked" :blocked="blocked" :dirty="metadataDirty" @save="save('metadata')" />
+  <section class="question-section"><h2>题目 <span class="muted">{{ questions.length }} / 100</span></h2><p v-if="!editable" class="muted">当前状态不能编辑题目；暂停后才可修改。请使用上方暂停收集后再修改。</p>
     <div v-if="checks.errors.length" class="error" role="alert"><strong>请先修复配置再保存题目</strong><ul><li v-for="item in checks.errors" :key="`${item.field}-${item.code}`">{{ item.message }}</li></ul></div>
     <div v-if="issues.length" class="definition-issues" aria-live="polite"><h3>草稿待完善</h3><p>以下问题允许保留在草稿中，发布前需要完善。</p><ul><li v-for="item in issues" :key="`${item.field}-${item.code}`">{{ item.message }}</li></ul></div>
-    <fieldset class="plain-fieldset" :disabled="busy || !editable"><div class="editor-actions add-questions"><button v-for="item in (['single', 'multiple', 'text', 'number'] as const)" :key="item" type="button" class="secondary" :disabled="questions.length >= 100" @click="add(item)">添加{{ { single: '单选题', multiple: '多选题', text: '文本题', number: '数字题' }[item] }}</button></div>
+    <fieldset class="plain-fieldset" :disabled="busy || publicationLocked || !editable"><div class="editor-actions add-questions"><button v-for="item in (['single', 'multiple', 'text', 'number'] as const)" :key="item" type="button" class="secondary" :disabled="questions.length >= 100" @click="add(item)">添加{{ { single: '单选题', multiple: '多选题', text: '文本题', number: '数字题' }[item] }}</button></div>
       <QuestionCard v-for="(question, index) in questions" :key="question.id" :question="question" :index="index" :questions="questions" @move="move(index, $event)" @remove="questions.splice(index, 1)" />
     </fieldset>
-    <div class="editor-save-bar"><span class="muted">{{ questionsDirty ? '有未保存的题目修改' : '题目已保存' }} · 修订 {{ survey.revision }}</span><button class="primary" :disabled="busy || blocked || !editable || checks.errors.length > 0" @click="save('questions')">{{ busy ? '保存中…' : '保存题目' }}</button></div>
+    <div class="editor-save-bar"><span class="muted">{{ questionsDirty ? '有未保存的题目修改' : '题目已保存' }} · 修订 {{ survey.revision }}</span><button class="primary" :disabled="busy || publicationLocked || blocked || !editable || checks.errors.length > 0" @click="save('questions')">{{ busy ? '保存中…' : '保存题目' }}</button></div>
   </section></template>
 </section></template>

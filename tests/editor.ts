@@ -137,7 +137,7 @@ try{
     await mkdir('.local/evidence',{recursive:true});await page.screenshot({path:'.local/evidence/editor-desktop.png',fullPage:true});
     for(const width of [320,768,1024,1440]){await page.setViewportSize({width,height:1000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`overflow at ${width}`);}
     await page.setViewportSize({width:320,height:1000});await page.screenshot({path:'.local/evidence/editor-mobile.png',fullPage:true});assert.deepEqual(pageErrors,[]);
-    assert.equal(await page.getByRole('button',{name:/发布问卷|提交答卷|统计/}).count(),0);
+    assert.equal(await page.getByRole('button',{name:/复制问卷|断点恢复|自动保存/}).count(),0);
   });
   await mkdir('.local/evidence',{recursive:true});const result={date:new Date().toISOString(),status:'passed',database:dbName,checks,checkCount:checks.length,realBrowser:'Edge/Chromium via Playwright',publishedAndResponseFixtures:'DB fixtures only; publication/submission APIs not implemented',retainedTestData:true,noSchemaChange:true};await writeFile('.local/evidence/editor.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 }finally{await browser.close();await app.close();await client.close();}

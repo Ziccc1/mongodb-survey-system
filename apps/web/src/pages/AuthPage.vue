@@ -12,8 +12,8 @@ async function submit() {
   try {
     const result = await api<User>(register.value ? '/auth/register' : '/auth/login', 'POST', { username: username.value, password: password.value });
     password.value = '';
-    if (register.value) { await router.push({ path: '/login', query: { registered: '1' } }); }
-    else { currentUser.value = result; await router.push('/surveys'); }
+    if (register.value) { await router.push({ path: '/login', query: { registered: '1', ...(typeof route.query.next === 'string' ? { next: route.query.next } : {}) } }); }
+    else { currentUser.value = result; const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') && !route.query.next.startsWith('//') && new URL(route.query.next, location.origin).origin === location.origin ? route.query.next : '/surveys'; await router.push(next); }
   } catch (e) { error.value = (e as Error).message; } finally { busy.value = false; }
 }
 </script>
@@ -22,4 +22,4 @@ async function submit() {
 <form @submit.prevent="submit"><label for="username">用户名</label><input id="username" v-model="username" autocomplete="username" required maxlength="100" aria-describedby="username-help"><small id="username-help">1–50 个字符，忽略首尾空格和大小写。</small>
 <label for="password">密码</label><input id="password" v-model="password" type="password" :autocomplete="register ? 'new-password' : 'current-password'" required minlength="8" maxlength="256" aria-describedby="password-help"><small id="password-help">8–128 个字符，空格也是密码的一部分。</small>
 <button class="primary full" :disabled="busy">{{ busy ? '请稍候…' : register ? '创建账号' : '登录' }}</button></form>
-<p class="auth-switch">{{ register ? '已有账号？' : '还没有账号？' }} <RouterLink :to="register ? '/login' : '/register'">{{ register ? '去登录' : '注册账号' }}</RouterLink></p></div></section></template>
+<p class="auth-switch">{{ register ? '已有账号？' : '还没有账号？' }} <RouterLink :to="{ path: register ? '/login' : '/register', query: typeof route.query.next === 'string' ? { next: route.query.next } : {} }">{{ register ? '去登录' : '注册账号' }}</RouterLink></p></div></section></template>

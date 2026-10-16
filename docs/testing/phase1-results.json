@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-16",
+  "baselineCommit": "b8bbb07",
+  "releaseTag": "phase1-v1.0.0",
+  "runs": [
+    {
+      "name": "publish",
+      "start": "2026-10-16T06:53:26.961Z",
+      "finished": "2026-10-16T06:53:29.052Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/publish.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T06-53-26-959Z-publish"
+    },
+    {
+      "name": "flow",
+      "start": "2026-10-16T06:55:04.017Z",
+      "finished": "2026-10-16T06:55:04.307Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/flow.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T06-55-04-016Z-flow"
+    },
+    {
+      "name": "submit",
+      "start": "2026-10-16T06:57:07.673Z",
+      "finished": "2026-10-16T06:57:09.561Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/submit.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T06-57-07-671Z-submit"
+    },
+    {
+      "name": "statistics",
+      "start": "2026-10-16T06:59:40.555Z",
+      "finished": "2026-10-16T06:59:42.660Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/statistics.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T06-59-40-553Z-statistics"
+    },
+    {
+      "name": "browser",
+      "start": "2026-10-16T07:12:42.388Z",
+      "finished": "2026-10-16T07:12:52.673Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/browser.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T07-12-42-386Z-browser"
+    },
+    {
+      "name": "edges",
+      "start": "2026-10-16T07:16:31.501Z",
+      "finished": "2026-10-16T07:16:33.145Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/edges.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T07-16-31-500Z-edges"
+    },
+    {
+      "name": "regression",
+      "start": "2026-10-16T07:20:33.975Z",
+      "finished": "2026-10-16T07:20:50.277Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/regression.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T07-20-33-973Z-regression"
+    },
+    {
+      "name": "pagination",
+      "start": "2026-10-16T07:24:45.288Z",
+      "finished": "2026-10-16T07:24:46.805Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/pagination.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T07-24-45-286Z-pagination"
+    },
+    {
+      "name": "browser",
+      "start": "2026-10-16T07:24:46.881Z",
+      "finished": "2026-10-16T07:24:57.759Z",
+      "command": [
+        "node",
+        "--env-file=.env",
+        "--import",
+        "tsx",
+        "tests/phase1/browser.ts"
+      ],
+      "exitCode": 0,
+      "status": "passed",
+      "directory": "docs/testing/runs/2026-10-16T07-24-46-879Z-browser"
+    },
+    {
+      "typecheck": "passed",
+      "recordedAt": "2026-10-16T07:20:33.8123283Z",
+      "build": "passed",
+      "directory": "docs/testing/runs/20261016-152021-final-build"
+    }
+  ],
+  "aiRecords": "Unchanged; no new AI usage entry or prompt record was created",
+  "businessData": "All automated tests use project1_test_*; no database drop or unknown legacy migration",
+  "databasePermissions": "Snapshot repository/API boundaries implemented. Role template supplied but MongoDB authentication is not enabled in this local instance; database insert-only privileges are not claimed as enforced."
+}
