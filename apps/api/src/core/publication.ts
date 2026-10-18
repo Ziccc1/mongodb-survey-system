@@ -14,7 +14,7 @@ import type {VersionDocument} from './versions.js';
 export const transactionOptions={readConcern:{level:'snapshot' as const},writeConcern:{w:'majority' as const},readPreference:'primary' as const};
 export function registerPublication(app:FastifyInstance,db:Db,client:MongoClient,auth:Auth,config:Config,faults:FaultHooks={}){
   const surveys=db.collection<SurveyDocument>('surveys'),versions=versionRepository(db);
-  function receipt(s:SurveyDocument,v:VersionDocument,body:PublishCommand,replayed:boolean):PublishReceipt{return {surveyId:s._id.toHexString(),publishedVersion:v.version,status:'published',revision:body.expectedRevision+1,publishedAt:v.publishedAt.toISOString(),firstPublishedAt:(s.firstPublishedAt??v.publishedAt).toISOString(),shareUrl:`${config.origin}/survey/${s.publicId}`,replayed};}
+  function receipt(s:SurveyDocument,v:VersionDocument,body:PublishCommand,replayed:boolean):PublishReceipt{return {surveyId:s._id.toHexString(),publishedVersion:v.version,status:'published',revision:body.expectedRevision+1,publishedAt:v.publishedAt.toISOString(),firstPublishedAt:(s.firstPublishedAt??v.publishedAt).toISOString(),shareUrl:`${config.publicAppUrl ?? config.origin}/survey/${s.publicId}`,replayed};}
   app.post<{Params:{surveyId:string};Body:PublishCommand}>('/api/v1/surveys/:surveyId/publish',{schema:{body:publishSchema}},async(request,reply)=>{
     const user=await auth(request),operationKey=key(request.headers['publication-key']),body=request.body,requestHash=hash(body);
     let replayed=false;

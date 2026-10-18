@@ -1,0 +1,14 @@
+{
+  "name": "browser",
+  "start": "2026-10-17T16:15:18.164Z",
+  "finished": "2026-10-17T16:15:25.667Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/browser.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

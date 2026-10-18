@@ -8,3 +8,7 @@ node_modules/
 .env.*
 !.env.example
 *.tsbuildinfo
+
+# Word lock files and local report drafts (submitted separately)
+~$*
+/*报告*.docx

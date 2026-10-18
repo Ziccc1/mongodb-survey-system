@@ -1,3 +1,4 @@
+import DashboardPage from './pages/DashboardPage.vue';
 import FillPage from './pages/FillPage.vue';
 import VersionsPage from './pages/VersionsPage.vue';
 import StatisticsPage from './pages/StatisticsPage.vue';
@@ -10,7 +11,7 @@ import CreatePage from './pages/CreatePage.vue';
 import EditorPage from './pages/EditorPage.vue';
 import { restoreSession, currentUser } from './session';
 export const router = createRouter({ history: createWebHistory(), routes: [
-  { path: '/', redirect: '/surveys' }, { path: '/login', component: AuthPage }, { path: '/register', component: AuthPage },
+  { path: '/', redirect: '/dashboard' }, { path: '/dashboard', component: DashboardPage, meta: { protected: true } }, { path: '/login', component: AuthPage }, { path: '/register', component: AuthPage },
   { path: '/surveys', component: ListPage, meta: { protected: true } },
   { path: '/surveys/new', component: CreatePage, meta: { protected: true } },
   { path: '/surveys/:surveyId', component: EditorPage, meta: { protected: true } },

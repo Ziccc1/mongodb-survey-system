@@ -1,0 +1,14 @@
+{
+  "name": "pagination",
+  "start": "2026-10-18T08:30:07.832Z",
+  "finished": "2026-10-18T08:30:09.385Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/pagination.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

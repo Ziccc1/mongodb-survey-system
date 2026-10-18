@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "baseline": false,
+  "database": "project1_test_fillreview_1792138578856",
+  "results": [
+    "PASS published list shows 收集中",
+    "PASS default preview browses required questions without answers",
+    "PASS basketball+swim opens Q4; heading: 第 4 题 · 第 3 / 6 步",
+    "PASS basketball+run goes to Q3, simulated filling retains required validation",
+    "PASS empty preview can finish and creates no responses",
+    "PASS actual filling validates required answers, zero jump, fractional/letter phone and exact Decimal128 save",
+    "PASS paused, closed and draft list labels"
+  ],
+  "pageErrors": []
+}

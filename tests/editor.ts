@@ -106,7 +106,7 @@ try{
   await check('browser adds all four types, edits metadata, options, constraints and rule priority',async()=>{
     await page.goto(`${config.origin}/surveys/${ui}`);await page.getByRole('heading',{name:'可操作题目编辑',exact:true}).waitFor();
     await page.getByLabel('问卷说明',{exact:true}).fill('😀'.repeat(2001));await expect(page.getByRole('button',{name:'保存基本信息',exact:true})).toBeDisabled();await expect(page.locator('#edit-description-error')).toContainText('超出 1');
-    await page.getByLabel('问卷说明',{exact:true}).fill('题目编辑测试说明');await page.getByRole('button',{name:'保存基本信息',exact:true}).click();await expect(page.getByRole('status')).toContainText('基本信息已保存');
+    await page.getByLabel('问卷说明',{exact:true}).fill('题目编辑测试说明');await page.locator('#editor-settings').evaluate(el=>(el as HTMLDetailsElement).open=true);await page.getByRole('button',{name:'保存基本信息',exact:true}).click();await expect(page.getByRole('status')).toContainText('基本信息已保存');
     for(const type of ['单选题','多选题','数字题','文本题'])await page.getByRole('button',{name:`添加${type}`,exact:true}).click();
     const cards=page.getByTestId('question');await expect(cards).toHaveCount(4);
     const titles=['喜欢的水果','平时的活动','年龄数字','其他建议'];for(let i=0;i<4;i++)await cards.nth(i).getByLabel('题干',{exact:true}).fill(titles[i]);
@@ -129,7 +129,7 @@ try{
     await page.getByRole('button',{name:'保存题目',exact:true}).click();await expect(page.locator('.conflict')).toBeVisible();await expect(card.getByLabel('题干',{exact:true})).toHaveValue('保留本地题干');await expect(page.getByRole('button',{name:'保存题目',exact:true})).toBeDisabled();
     await page.getByRole('button',{name:'已比较，保留本地并采用最新修订号',exact:true}).click();await expect(card.getByLabel('题干',{exact:true})).toHaveValue('保留本地题干');await page.getByRole('button',{name:'保存题目',exact:true}).click();await expect(page.getByRole('status')).toContainText('题目已保存');assert.equal((await current(ui)).draftDefinition.questions[0].title,'保留本地题干');
     // Metadata is still intentionally local; explicitly save it before refresh.
-    await page.getByRole('button',{name:'保存基本信息',exact:true}).click();await expect(page.getByRole('status')).toContainText('基本信息已保存');
+    await page.locator('#editor-settings').evaluate(el=>(el as HTMLDetailsElement).open=true);await page.getByRole('button',{name:'保存基本信息',exact:true}).click();await expect(page.getByRole('status')).toContainText('基本信息已保存');
   });
   await check('browser deletion keeps unfinished references, supports save/reload and mobile layout',async()=>{
     const cards=page.getByTestId('question');await cards.nth(3).getByRole('button',{name:'删除第4题',exact:true}).click();await expect(cards).toHaveCount(3);await expect(page.locator('.definition-issues')).toContainText('目标尚未选择或已删除');

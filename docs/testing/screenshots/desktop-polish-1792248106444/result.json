@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "database": "project1_test_desktop_1792248105335",
+  "fixtureNote": "Same isolated database and definitions before/after; real test responses, not business data",
+  "screens": [
+    "login",
+    "dashboard",
+    "list",
+    "editor",
+    "fill",
+    "statistics"
+  ],
+  "pageErrors": [],
+  "checks": [
+    "six representative pages before/after at 1440x1000",
+    "real recent surveys and navigation",
+    "directory selects/focuses original question",
+    "bottom add/manual save/refresh",
+    "version statistics and percent table"
+  ]
+}

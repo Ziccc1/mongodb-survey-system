@@ -1,0 +1,15 @@
+{
+  "name": "desktop",
+  "start": "2026-10-17T14:55:07.316Z",
+  "finished": "2026-10-17T14:55:12.492Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/desktop.ts",
+    "--verify"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "submit",
+  "start": "2026-10-17T16:15:11.640Z",
+  "finished": "2026-10-17T16:15:13.273Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/submit.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "charts",
+  "start": "2026-10-17T14:17:00.371Z",
+  "finished": "2026-10-17T14:17:03.818Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/statistics-charts.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

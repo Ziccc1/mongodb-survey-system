@@ -8,7 +8,7 @@ import {initialize} from '../../apps/api/src/database/initialize.js';
 import type {Question,Editor} from '@survey/shared';
 export async function harness(name:string,faults:FaultHooks={},origin?:string){
   const base=loadConfig(),dbName=`project1_test_${name}_${Date.now()}`,uri=new URL(base.uri);uri.pathname='/'+dbName;
-  const config={...base,...(origin?{origin}:{}),dbName,uri:uri.toString()},client=new MongoClient(config.uri);await client.connect();const db=client.db(dbName);await initialize(db);
+  const config={...base,...(origin?{origin,publicAppUrl:origin}:{}),dbName,uri:uri.toString()},client=new MongoClient(config.uri);await client.connect();const db=client.db(dbName);await initialize(db);
   const app=await buildApp(config,{logger:false,faults});const cookies:string[]=[];
   const headers={origin:config.origin,'x-csrf-guard':'1'};
   async function request(method:'GET'|'POST'|'PUT'|'PATCH'|'DELETE',path:string,body?:unknown,who=0,extra:Record<string,string>={}){return app.inject({method,url:'/api/v1'+path,headers:{...headers,...(cookies[who]?{cookie:cookies[who]}:{}),...extra},...(body===undefined?{}:{payload:body as object})});}

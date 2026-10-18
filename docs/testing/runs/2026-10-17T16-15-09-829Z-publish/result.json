@@ -1,0 +1,14 @@
+{
+  "name": "publish",
+  "start": "2026-10-17T16:15:09.831Z",
+  "finished": "2026-10-17T16:15:11.362Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/publish.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

@@ -1,5 +1,8 @@
 # 问卷系统 API 接口契约
 
+[← 返回项目总 README](../README.md)
+
+
 状态：第一阶段1.0.0核心已实现：A01—A04、Q01—Q05、V01—V03/V05—V06、F01—F02、H01—H02、S01—S03及Z01/Z02。可选V04复制暂未启用，核对认证和归属后501；无前端按钮。示例仍为契约样例，实际执行范围见[第一阶段测试](testing/phase1-results.md)。
 
 ## 1 契约范围与维护原则
@@ -167,6 +170,8 @@ Answer互斥形状完整如下；未答的可选题从answers中省略，不传n
 列表data完整结构：问卷列表`{items:SurveySummary[],nextCursor}`；版本列表`{surveyId,latestPublishedVersion:PositiveVersion|null,items:VersionSummary[],nextCursor}`；答卷列表`{surveyId,selectedVersion,latestPublishedVersion,items:ResponseSummary[],nextCursor}`。未发布问卷版本列表可200空数组；统计/按版答卷列表无已发布版则409 NO_PUBLISHED_VERSION。
 
 统计data为VersionContext全部字段，加整卷`questionSummaries:QuestionSummary[]`或单题`questionSummary:QuestionSummary`。原文分页为VersionContext全部字段，加`question:{id:StableId,type:"text"|"number",title:string}`、`items:[{responseId,anonymous,submittedAt,answer:Answer}]`、nextCursor；只读所选版，未答/跳过不返回空记录。零答卷时题目/选项仍来自快照并补0，数字average=null。
+
+统计页面展示约定（2026-10-17）：选项占比由前端按 count/answeredCount×100 计算并显示至多一位小数，不以整卷答卷数为分母；无有效回答显示零次数和0%表格，不绘制分布图。多选各项合计可超过100%，使用柱状图；单选可切换饼图/柱状图。数字average的API原值与类型不变，页面至多显示两位小数。标题含手机号、电话等关键词的数字题默认隐藏均值，允许创建者手动切换本次查看；这是展示偏好，不是题型推断、输入校验或快照字段，刷新/切版本重新采用默认，不修改历史发布定义。
 
 ### 4.5 可信字段与匿名输出白名单
 
@@ -1845,7 +1850,7 @@ GET /api/v1/health/ready HTTP/1.1
 | 登录、注册、会话恢复、退出 | A01—A04 | 满足；过期时可重新登录，未知提交的key与快照由当前页保留 |
 | 自己的问卷列表、创建、分享 | Q01—Q03 | 满足；shareUrl由发布回执提供，列表已有publicId可构造本应用分享页面URL，不代表允许未发布填写 |
 | 题目编辑、排序、删题、约束、跳转 | Q03—Q05 | 整体保存questions足够，不增加每题CRUD；validationIssues反馈发布前待修项 |
-| 草稿预览 | Q03及共享路径纯函数 | 无需新增后端预览提交接口，预览不写答卷和统计 |
+| 草稿预览 | Q03及共享路径纯函数 | 默认按原题序每页10题浏览，无需作答且不执行跳转；可切换模拟填写以执行校验和跳转。无需新增后端预览提交接口，两种方式均不写答卷和统计 |
 | 发布、暂停、关闭、可选复制 | V01—V04 | 满足；草稿保存不生成版本，复制默认可不启用，不引入重开 |
 | 查看发布版本、历史定义 | V05—V06 | 满足；版本列表分页不假定连续编号，迁移缺失时间允许null |
 | 填写、返回改答、匿名选择、重试与完成页 | F01—F02 | 前端处理交互，后端最终路径核验；完成页用提交回执，无需增加公开答卷查询接口 |
@@ -2257,3 +2262,13 @@ GET `/api/v1/surveys/670000000000000000000010/statistics?version=1`。
 | v1成功重放 | 5 | 3 | 2 | 1 | 0 |
 
 查看v1时selectedVersionResponseCount=1，但currentVersionResponseCount=0；v1仍显示“香蕉”、年龄平均20。查看v2只读“葡萄”与新校验定义，未收答卷时选项0、均值null，不把v1结果带过去。
+
+## 2026-10-17 前端交互与分享地址补充
+
+本轮未新增/修改业务接口、请求字段、答卷或发布版本结构。填写页每页最多10道当前路径题目，原始题号不随分页重排；翻页校验与答案清理属于前端交互，F02仍重新计算完整路径最终校验，不能信任客户端页码或路径。预览的分页浏览/模拟填写均无提交 API 调用。
+
+V01 的 shareUrl 使用 PUBLIC_APP_URL（旧配置缺省时使用 APP_ORIGIN），二者必须相同且为完整 HTTP(S) Origin；页面复制链接使用同一配置，不再根据浏览器当前地址推测。`GET /app-config.js` 是非业务的公开运行配置脚本资产，仅包含 publicAppUrl，不暴露环境变量全集、数据库地址或密钥。Vite与构建后的同源服务都提供此资产；配置、Origin与部署边界见[部署说明](deployment.md)。现有严格 Origin/X-CSRF-Guard 检查不变。
+
+图表取消自定义 palette 和 itemStyle 色彩覆盖，采用 ECharts 默认系列配色；饼图标签不使用 ECharts 自行四舍五入的 percent，而与表格、提示共用 count/answeredCount 的至多一位小数结果。已有数字均值开关及计算/显示范围保持不变。
+
+[← 返回项目总 README](../README.md)

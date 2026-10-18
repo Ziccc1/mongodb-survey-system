@@ -1,0 +1,5 @@
+<script setup lang="ts">
+withDefaults(defineProps<{name:string;size?:number}>(),{size:20});
+const paths:Record<string,string>={document:'M6 3h8l4 4v14H6z M14 3v5h4 M9 12h6 M9 16h6',plus:'M12 5v14 M5 12h14',folder:'M3 6h7l2 3h9v11H3z M3 6V4h7l2 2',arrow:'M5 12h14 M14 7l5 5-5 5',clock:'M12 8v5l3 2 M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0',chart:'M4 3v17h17 M8 15v-4 M13 15V6 M18 15V9',single:'M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0 M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0',multiple:'M4 4h16v16H4z M8 12l3 3 6-7',text:'M4 5h16 M12 5v15 M8 20h8',number:'M9 3 7 21 M17 3l-2 18 M4 9h17 M3 15h17',shield:'M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6z M8 12l3 3 5-6',layers:'m12 3 10 5-10 5L2 8z M2 12l10 5 10-5 M2 16l10 5 10-5',edit:'m14 5 5 5 M4 20l5-1L21 7l-5-5L4 14z',check:'M5 12l4 4L19 6'};
+</script>
+<template><svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="ui-icon" aria-hidden="true"><path :d="paths[name]??paths.document"/></svg></template>

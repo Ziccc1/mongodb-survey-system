@@ -1,0 +1,14 @@
+{
+  "name": "flow",
+  "start": "2026-10-17T16:15:11.416Z",
+  "finished": "2026-10-17T16:15:11.586Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/flow.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

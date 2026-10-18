@@ -234,3 +234,19 @@
 - 证据：[AI-015-editor-check.json](evidence/AI-015-editor-check.json)、[编辑验证](../editor-verification.md)。暂停/历史快照/答卷为独立测试库的显式fixture，不冒充发布/提交接口完成。无关旧账号和版本全套未重跑；旧测试源码405断言随新功能改为404，历史AI-013结果不改写。
 - 运行状态：仅重启核对归属后的项目API以加载新接口；原localhost:5173入口继续使用。测试库、旧数据、字符计数修正及旧AI日志/证据保留。
 - 未完成：发布/暂停/关闭业务、正式填写与执行跳转、答卷提交/统计、自动保存、旧库迁移与快照只插角色；没有Git提交，待用户实际试用。
+
+## AI-016 根据试用反馈调整预览与状态显示并核实多选跳转
+
+- 日期：2026-10-16（Asia/Shanghai）。本条是在修复完成后，按用户“把这次的内容写到ai日志里面”的明确授权补记；此前依用户要求暂停写日志。编号仅承接当前日志，不表示其他窗口期间的完整开发过程已记录。
+- 工具：Codex、PowerShell、Impeccable 界面检查技能、npm/TypeScript/Vite、MongoDB 原生驱动、Playwright 与本机 Edge。具体 AI 模型版本未从界面核实。
+- 实际用户提示词：[反馈及补记授权原文](conversations/AI-016-user-prompt.md)。只保存相关用户消息；完整 AI 回复与工具输出仍在本聊天，未另存完整往返导出。
+- 人工贡献：用户试用后提出创建者预览应可直接切题，反馈篮球与游泳的跳转疑问，以及发布后列表仍显示草稿；要求查明原因。未记录用户直接修改代码或修复后的逐项验收。
+- AI 查明原因：预览与正式填写共用必答阻断逻辑；问卷列表标签固定写为“草稿”。只读核对业务问卷和 v1 发布快照，包含全部篮球与游泳跳往第四题的规则保存正确；修改前真实浏览器复现实际进入第四题，但页头显示“第 3 / 6 步”，不能将该现象记录为多选匹配算法错误。
+- AI 实际修复：创建者预览默认逐题浏览，无需作答且不执行跳转，另提供模拟填写验证校验和规则；切换方式回到第一题，两者均不保存答卷。填写页分开显示原题号和路径步骤，确认答案页保留原题号。列表按 status 显示草稿、收集中、已暂停、已关闭。未修改共享跳转匹配算法、数据库结构或已有业务数据。
+- 代码与文档修改：apps/web/src/pages/FillPage.vue、apps/web/src/pages/ListPage.vue、apps/web/src/components/DefinitionView.vue；新增 tests/phase1/fill-review.ts，调整 tests/phase1/browser.ts 的预览用例显式选择模拟填写；同步 docs/system-design.md、docs/api.md，新增 docs/testing/fill-preview-review.md。本次另追加日志、原始提示词与最终专项结果副本。
+- 实际验证：修改前基线复现三项现象；修复后七组专项真实浏览器检查通过，覆盖空答浏览及完成且无答卷、多选首条命中、篮球与跑步进入建议题、模拟必答仍生效、原题号、正式填写的零值跳转、列表四种状态。测试手机号 13800138000 实际提交后为 Decimal128，数值精确；13800138000.5 和字母被拒绝。专项页面无运行错误，320px 列表无横向溢出，桌面及手机截图已查看。
+- 构建与回归：npm run build 通过，含 API TypeScript 与前端 vue-tsc；tests/phase1/browser.ts 完整浏览器流程回归通过，包含发布、登录返回、改答清理、丢响应后同 key 重试、手机号展示、历史版本、分版本统计及关闭后重放。确认页题号最后调整后再次构建并重跑七组专项通过；不冒充此后又重跑了完整浏览器流程或所有并发专项。
+- 验证命令：node --env-file=.env --import tsx tests/phase1/fill-review.ts --baseline；node --env-file=.env --import tsx tests/phase1/fill-review.ts；node --env-file=.env --import tsx tests/phase1/browser.ts；npm.cmd run build。初次本地 MongoDB 只读连接被沙箱 EACCES 拒绝，获批准后执行；浏览器与数据库测试也经批准在独立库运行。
+- 证据：[最终七组专项结果](evidence/AI-016-fill-review-result.json)、[原因与验证记录](../testing/fill-preview-review.md)。基线及专项截图保留在 .local/evidence/fill-review-1792138235671-baseline/、fill-review-1792138363994/、fill-review-1792138579462/；完整浏览器回归截图在 docs/testing/screenshots/1792138425423/。未声称被忽略的 .local 文件已随提交归档。
+- 数据边界：专项最终库 project1_test_fillreview_1792138578856；完整浏览器回归库 project1_test_phasebrowser_1792138424262，测试数据保留。业务库只读核对，未插入或修改用户问卷、发布快照或答卷。
+- 当前复核状态：AI 修复与上述验证完成，待用户再次试用；本次未创建 Git 提交，不补造人工验收或独立发现经过。旧日志原文保留。

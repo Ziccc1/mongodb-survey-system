@@ -27,6 +27,10 @@ export async function buildApp(config: Config, options: { logger?: boolean; faul
   const users = db.collection<UserDocument>('users'), surveys = db.collection<SurveyDocument>('surveys');
   const dummyHash = await hashPassword(randomBytes(32).toString('hex'));
   app.addHook('onClose', async () => { await client.close(); });
+  app.get('/app-config.js', async (_request, reply) => {
+    reply.type('application/javascript').header('Cache-Control','no-store');
+    return `window.__SURVEY_CONFIG__=${JSON.stringify({publicAppUrl:config.publicAppUrl ?? config.origin}).replaceAll('<','\\u003c')};`;
+  });
   await app.register(cookie);
   await app.register(rateLimit, { max: 180, timeWindow: '1 minute', errorResponseBuilder: () => ({ statusCode: 429, code: 'RATE_LIMITED', error: 'Too Many Requests', message: '请求过于频繁，请稍后重试' }) });
   app.removeContentTypeParser('application/json');

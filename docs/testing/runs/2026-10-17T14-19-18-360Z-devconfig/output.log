@@ -1,0 +1,2 @@
+PASS Vite starts with WEB_HOST=0.0.0.0; non-loopback http://172.18.208.1:5181 serves explicit configured URL and same-origin API proxy health. No business writes.
+Second device, firewall reachability and public deployment remain unverified.

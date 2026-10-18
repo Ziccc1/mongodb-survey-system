@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {codePointLength} from '@survey/shared';
 import type {Answer,Question,AnswerIssue} from '@survey/shared';
-const props=defineProps<{question:Question;answer:Answer|undefined;errors:AnswerIssue[];disabled:boolean}>();
+const props=defineProps<{question:Question;answer:Answer|undefined;errors:AnswerIssue[];disabled:boolean;number?:number}>();
 const emit=defineEmits<{change:[answer:Answer|undefined]}>();
 function single(id:string){emit('change',{questionId:props.question.id,type:'single',optionId:id});}
 function multiple(id:string,event:Event){const selected=props.answer?.type==='multiple'?[...props.answer.optionIds]:[],checked=(event.target as HTMLInputElement).checked;const values=checked?[...selected,id]:selected.filter(value=>value!==id);emit('change',values.length?{questionId:props.question.id,type:'multiple',optionIds:values}:undefined);}
 function text(event:Event,type:'text'|'number'){const value=(event.target as HTMLInputElement).value;emit('change',!value?undefined:type==='text'?{questionId:props.question.id,type,text:value}:{questionId:props.question.id,type,number:value});}
 </script>
-<template><fieldset class="plain-fieldset answer-input" :disabled="disabled" :aria-describedby="`answer-errors-${question.id}`"><legend>{{question.title}} <span v-if="question.required" class="required">（必答）</span><span v-else class="muted">（可选）</span></legend>
+<template><fieldset class="plain-fieldset answer-input" :disabled="disabled" :aria-describedby="`answer-errors-${question.id}`"><legend><span v-if="number" class="original-number">{{number}}.</span> {{question.title}} <span v-if="question.required" class="required">（必答）</span><span v-else class="muted">（可选）</span></legend>
 <template v-if="question.type==='single'"><label v-for="option in question.options" :key="option.id" class="answer-choice"><input type="radio" :name="question.id" :checked="answer?.type==='single'&&answer.optionId===option.id" @change="single(option.id)">{{option.label}}</label></template>
 <template v-else-if="question.type==='multiple'"><label v-for="option in question.options" :key="option.id" class="answer-choice"><input type="checkbox" :checked="answer?.type==='multiple'&&answer.optionIds.includes(option.id)" @change="multiple(option.id,$event)">{{option.label}}</label><small>可选 {{question.validation?.minChoices??(question.required?1:0)}}—{{question.validation?.maxChoices??question.options?.length}} 项</small></template>
 <template v-else-if="question.type==='text'"><label class="visually-hidden" :for="`input-${question.id}`">{{question.title}}</label><textarea :id="`input-${question.id}`" :value="answer?.type==='text'?answer.text:''" rows="5" :aria-invalid="errors.length>0" @input="text($event,'text')"></textarea><small>{{codePointLength(answer?.type==='text'?answer.text:'')}} / {{question.validation?.maxLength??10000}} 个字符</small></template>

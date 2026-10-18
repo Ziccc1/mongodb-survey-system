@@ -1,5 +1,8 @@
 # 第一阶段 MongoDB Schema 设计
 
+[← 返回项目总 README](../README.md)
+
+
 设计日期：2026-10-15，按本轮正式修改规则修订。依据：requirements.md R01—R29、decisions.md 当前 D06 与 D13—D18。目标为三核心集合加 survey_versions；本文是目标 Schema，现有 init-schema.js 仍是旧三集合验证器，尚未升级。1.0.0已在专用库实现四集合验证器、索引及账号/草稿/Q04/Q05编辑业务，新入口为npm run db:init（apps/api/src/database/）；第一阶段发布/答卷/统计已实现，未知旧库迁移尚未执行，不能仅运行旧脚本得到下述能力。详见[实现边界](implementation-verification.md)。
 
 ## 1 集合与关系
@@ -230,3 +233,5 @@ Schema 验证器不会自动实现外键、所有权、题目引用、规则方�
 - [MongoDB 部分索引与唯一约束](https://www.mongodb.com/docs/manual/core/index-partial/)：唯一约束只作用于匹配部分筛选条件的文档。
 - [MongoDB 事务](https://www.mongodb.com/docs/manual/core/transactions/)：多文档原子性及部署要求。
 - [MongoDB 文档大小限制](https://www.mongodb.com/docs/manual/reference/limits/#bson-document-size)：16 MiB 限制。
+
+[← 返回项目总 README](../README.md)

@@ -1,0 +1,7 @@
+Independent retained database: project1_test_statscharts_1792248568441
+PASS fixed answers preserve exact API counts; unanswered fourth response excluded from per-question denominator
+PASS single 66.7/33.3/0 and multi 66.7/66.7/0; multi uses bars with explicit denominator
+PASS single chart switching, phone mean hidden by default with manual override, ordinary mean rounded to 1.33
+PASS 320px responsive chart and identical single-question statistics
+PASS empty latest version has no misleading chart; historical version restores counts/charts with no page errors
+Evidence: docs/testing/screenshots/statistics-charts-1792248569008

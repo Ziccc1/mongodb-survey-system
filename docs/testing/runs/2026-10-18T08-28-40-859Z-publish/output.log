@@ -1,0 +1,114 @@
+D:\大三\数据库\project1\node_modules\mongodb\src\sdam\topology.ts:638
+        const timeoutError = new MongoServerSelectionError(
+                             ^
+
+
+MongoServerSelectionError: connect EACCES ::1:27018, connect EACCES 127.0.0.1:27018
+    at Topology.selectServer (D:\大三\数据库\project1\node_modules\mongodb\src\sdam\topology.ts:638:30)
+    at async Topology._connect (D:\大三\数据库\project1\node_modules\mongodb\src\sdam\topology.ts:466:22)
+    at async Topology.connect (D:\大三\数据库\project1\node_modules\mongodb\src\sdam\topology.ts:402:7)
+    at async topologyConnect (D:\大三\数据库\project1\node_modules\mongodb\src\mongo_client.ts:684:9)
+    at async MongoClient._connect (D:\大三\数据库\project1\node_modules\mongodb\src\mongo_client.ts:696:7)
+    at async MongoClient.connect (D:\大三\数据库\project1\node_modules\mongodb\src\mongo_client.ts:608:7)
+    at async harness (D:\大三\数据库\project1\tests\phase1\harness.ts:11:131)
+    at async <anonymous> (D:\大三\数据库\project1\tests\phase1\publish.ts:6:24) {
+  errorLabelSet: Set(0) {},
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(1) {
+      'localhost:27018' => ServerDescription {
+        address: 'localhost:27018',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        minRoundTripTime: 0,
+        lastUpdateTime: 41481,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect EACCES ::1:27018, connect EACCES 127.0.0.1:27018
+            at Socket.<anonymous> (D:\大三\数据库\project1\node_modules\mongodb\src\cmap\connect.ts:430:16)
+            at Object.onceWrapper (node:events:633:26)
+            at Socket.emit (node:events:518:28)
+            at emitErrorNT (node:internal/streams/destroy:170:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+          errorLabelSet: Set(3) {
+            'SystemOverloadedError',
+            'RetryableError',
+            'ResetPool'
+          },
+          beforeHandshake: false,
+          [cause]: AggregateError [EACCES]: 
+              at internalConnectMultiple (node:net:1134:18)
+              at afterConnectMultiple (node:net:1715:7) {
+            code: 'EACCES',
+            [errors]: [Array]
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        maxMessageSizeBytes: null,
+        maxWriteBatchSize: null,
+        maxBsonObjectSize: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null,
+        iscryptd: false
+      }
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'rs0',
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [cause]: MongoNetworkError: connect EACCES ::1:27018, connect EACCES 127.0.0.1:27018
+      at Socket.<anonymous> (D:\大三\数据库\project1\node_modules\mongodb\src\cmap\connect.ts:430:16)
+      at Object.onceWrapper (node:events:633:26)
+      at Socket.emit (node:events:518:28)
+      at emitErrorNT (node:internal/streams/destroy:170:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errorLabelSet: Set(3) { 'SystemOverloadedError', 'RetryableError', 'ResetPool' },
+    beforeHandshake: false,
+    [cause]: AggregateError [EACCES]: 
+        at internalConnectMultiple (node:net:1134:18)
+        at afterConnectMultiple (node:net:1715:7) {
+      code: 'EACCES',
+      [errors]: [
+        Error: connect EACCES ::1:27018
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4092,
+          code: 'EACCES',
+          syscall: 'connect',
+          address: '::1',
+          port: 27018
+        },
+        Error: connect EACCES 127.0.0.1:27018
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4092,
+          code: 'EACCES',
+          syscall: 'connect',
+          address: '127.0.0.1',
+          port: 27018
+        }
+      ]
+    }
+  }
+}
+
+Node.js v22.17.0

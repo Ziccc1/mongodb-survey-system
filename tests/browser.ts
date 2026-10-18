@@ -27,7 +27,7 @@ try {
   await page.getByLabel('用户名', { exact: true }).fill(username); await page.getByLabel('密码', { exact: true }).fill(password);
   await page.getByRole('button', { name: '登录', exact: true }).click(); await page.waitForURL('**/surveys');
   await page.getByRole('heading', { name: '还没有问卷' }).waitFor();
-  await page.getByRole('link', { name: '＋ 创建问卷', exact: true }).click();
+  await page.getByRole('link', { name: '创建问卷', exact: true }).click();
   await page.getByLabel('问卷标题', { exact: false }).fill(title);
   await page.getByLabel('问卷说明', { exact: true }).fill('了解同学们的自习空间需求。');
   await page.getByLabel('允许填写者选择匿名').check();

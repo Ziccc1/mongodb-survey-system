@@ -1,0 +1,14 @@
+{
+  "name": "regression",
+  "start": "2026-10-17T14:17:03.885Z",
+  "finished": "2026-10-17T14:17:16.240Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/regression.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}
