@@ -1,0 +1,14 @@
+{
+  "name": "publicationpage",
+  "start": "2026-10-19T01:19:34.721Z",
+  "finished": "2026-10-19T01:19:58.706Z",
+  "command": [
+    "node",
+    "--env-file=.env",
+    "--import",
+    "tsx",
+    "tests/phase1/publication-page.ts"
+  ],
+  "exitCode": 0,
+  "status": "passed"
+}

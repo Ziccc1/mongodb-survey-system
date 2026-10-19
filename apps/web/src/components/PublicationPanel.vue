@@ -4,14 +4,14 @@ import {shareUrl,localShare} from '../public-config';
 import type {Editor,PublishCommand,PublishReceipt} from '@survey/shared';
 import {api,RequestError} from '../api';
 const props=defineProps<{survey:Editor;dirty:boolean}>();
-const emit=defineEmits<{changed:[];locked:[value:boolean]}>();
+const emit=defineEmits<{changed:[];published:[receipt:PublishReceipt];locked:[value:boolean]}>();
 const link=computed(()=>shareUrl(props.survey.publicId)),copied=ref('');
 async function copyLink(){copied.value='';try{await navigator.clipboard.writeText(link.value);copied.value='链接已复制';}catch{const input=document.getElementById(`share-${props.survey.id}`) as HTMLInputElement|null;input?.focus();input?.select();copied.value='请复制已选中的链接（当前浏览器不允许自动复制）。';}}
 const busy=ref(false),error=ref(''),pending=ref<{key:string;body:PublishCommand}|null>(null);
 async function publish(){
   if(busy.value||props.dirty)return;busy.value=true;error.value='';emit('locked',true);
   pending.value??={key:crypto.randomUUID(),body:{expectedRevision:props.survey.revision,expectedDraftDefinitionVersion:props.survey.draftDefinitionRevision}};
-  try{await api<PublishReceipt>(`/surveys/${props.survey.id}/publish`,'POST',pending.value.body,{'Publication-Key':pending.value.key});pending.value=null;emit('changed');}
+  try{const receipt=await api<PublishReceipt>(`/surveys/${props.survey.id}/publish`,'POST',pending.value.body,{'Publication-Key':pending.value.key});pending.value=null;emit('published',receipt);}
   catch(e){error.value=(e as Error).message;if(e instanceof RequestError&&e.status<500)pending.value=null;}
   finally{busy.value=false;emit('locked',!!pending.value);}
 }

@@ -9,12 +9,14 @@ import AuthPage from './pages/AuthPage.vue';
 import ListPage from './pages/ListPage.vue';
 import CreatePage from './pages/CreatePage.vue';
 import EditorPage from './pages/EditorPage.vue';
+import PublicationPage from './pages/PublicationPage.vue';
 import { restoreSession, currentUser } from './session';
 export const router = createRouter({ history: createWebHistory(), routes: [
   { path: '/', redirect: '/dashboard' }, { path: '/dashboard', component: DashboardPage, meta: { protected: true } }, { path: '/login', component: AuthPage }, { path: '/register', component: AuthPage },
   { path: '/surveys', component: ListPage, meta: { protected: true } },
   { path: '/surveys/new', component: CreatePage, meta: { protected: true } },
   { path: '/surveys/:surveyId', component: EditorPage, meta: { protected: true } },
+  { path: '/surveys/:surveyId/publication', component: PublicationPage, meta: { protected: true } },
   { path: '/surveys/:surveyId/preview', component: FillPage, meta: { protected: true, preview: true } },
   { path: '/survey/:publicId', component: FillPage, meta: { protected: true } },
   { path: '/surveys/:surveyId/versions', component: VersionsPage, meta: { protected: true } },
