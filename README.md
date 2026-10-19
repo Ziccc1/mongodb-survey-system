@@ -2,7 +2,7 @@
 
 数据管理系统课程项目，第一阶段应用版本 **1.0.0**。系统支持账号管理、四种题型、条件跳转、发布与暂停、答卷提交、历史版本和分版本统计，全部业务数据存储在MongoDB中。
 
-代码仓库：[Ziccc1/mongodb-survey-system](https://github.com/Ziccc1/mongodb-survey-system)。[作业要求核对与最新测试](docs/assignment-checklist.md)列明已完成项、统计口径及报告/AI材料待补事项。
+代码仓库：[Ziccc1/mongodb-survey-system](https://github.com/Ziccc1/mongodb-survey-system)。[作业要求核对与最新测试](docs/assignment-checklist.md)保留当日完成项、统计口径及报告收尾事项；2026-10-19另已整理[最终提交版AI日志](docs/ai/submission-log.md)。
 
 本文件是项目运行及提交材料的统一入口，提供版本、配置、Schema及其关系、API和测试说明；详细文档均可返回本页。
 
@@ -34,7 +34,7 @@
 | [人工执行证据](docs/testing/manual-execution-evidence.md) | 实际MongoDB查询及人工反馈，手机号已脱敏 |
 | [完整人工验收方案](docs/testing/manual-acceptance.md) | 84项计划及固定数据，不等于全部已执行 |
 | [项目实现摘要](docs/project-report.md) | 核心实现、完成范围与限制；历史增量按日期保留 |
-| [AI记录入口](docs/ai/README.md) | 记录方法、[日志](docs/ai/usage-log.md)、部分提示词及证据，尚非独立总结报告 |
+| [AI记录入口](docs/ai/README.md) | [最终提交版日志](docs/ai/submission-log.md)、[补充提示词原文](docs/ai/submission-prompts.md)、历史过程及验证证据 |
 
 ## 前后端版本与环境
 
@@ -340,6 +340,6 @@ project1/
 - 当前MongoDB回环监听且未启用认证。应用仓储不提供快照修改/删除，数据库级只插角色尚未启用验收，不能阻止管理员改库。
 - JWT退出清Cookie，未实现服务器令牌撤销；单节点不提供多节点高可用。
 - 未知旧库迁移、第二台设备访问、生产负载和公网部署尚未完成验收。
-- 历史设计与测试按日期保留，旧阶段状态不代表当前功能；当前结论结合本页、源码及实际结果核对。AI日志原文保留，本次不新增AI使用记录。
+- 历史设计与测试按日期保留，旧阶段状态不代表当前功能；当前结论结合本页、源码及实际结果核对。历史AI日志原文保留；2026-10-19已补充[最终提交版AI日志](docs/ai/submission-log.md)，成员贡献仍需本人复核。
 
 [返回目录](#目录)

@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-19T09:49:42.290758+08:00",
+  "scope": "AI submission documentation only",
+  "modifiedFiles": [
+    "docs/ai/submission-log.md",
+    "docs/ai/submission-prompts.md",
+    "docs/ai/README.md",
+    "README.md",
+    "docs/assignment-checklist.md"
+  ],
+  "newTaskCount": 26,
+  "supplementalPromptGroups": 20,
+  "requiredFieldsPerTask": 6,
+  "checkedLocalLinks": 197,
+  "missingLocalLinks": [],
+  "brokenNewAnchors": [],
+  "historicalAiFilesUnchanged": true,
+  "historicalHashes": {
+    "docs/ai/usage-log.md": "d29fa65c44c0ff80505281a40d9f29fcb7f7455cac0955818d1b6b2fb41b5297",
+    "docs/ai/conversations/AI-009-user-prompt.md": "eedc5f29eb37d616a509897e011fb780adbcc921594968e43e5398b6bfa4aa16",
+    "docs/ai/conversations/AI-010-user-prompt.md": "ca9ff40bb046de7f20101f5171bbac7ab93b3450c30880b259ea1f6124ab5372",
+    "docs/ai/conversations/AI-011-user-prompt.md": "5ed64d326e2a7eeeee26ae98f24b174fbbd6f7ca5667522e108a217d63a3eb23",
+    "docs/ai/conversations/AI-013-user-prompt.md": "37dbd1de136e6d651f1c009bd049dbdd0574d502c9b48dcd991c2f5740f49ad8",
+    "docs/ai/conversations/AI-015-user-prompt.md": "9e8c7384d8a0d412859e6ee5ab9880b51cfbfa5bdcb28de8451f4877a1b5a3fe",
+    "docs/ai/conversations/AI-016-user-prompt.md": "f6b9f1a8ff97c7ae03b4fa898880a4d287e58a17f3cac5b2e96f90321009d5ff",
+    "docs/ai/evidence/AI-009-design-check.json": "697aca6ffabfb18f5fbaa350b44f2ba4341655121598e6529a488478c022c74c",
+    "docs/ai/evidence/AI-010-design-check.json": "50ead36fe39423bd9f8cf16936d872c3b4d477c3ce71c1a5e27604095dedd6f6",
+    "docs/ai/evidence/AI-011-api-check.json": "7dfe48fcbb9df86bf1b17363c08029767693c4c58c5f6c6b6aff912adb04153d",
+    "docs/ai/evidence/AI-013-runtime-check.json": "01836a301e444244af3cfc2d56b42424bf83de4067ac1dc6b1740b8a2dbb612d",
+    "docs/ai/evidence/AI-014-character-limits.json": "245b03f12b4a12ce926b198806d6048579c5340c897dc353e3794a044d499806",
+    "docs/ai/evidence/AI-015-editor-check.json": "66516c85deb5f7d96100bccdbf5f5d9af00396bf435469074468f5d83ccf117f",
+    "docs/ai/evidence/AI-016-fill-review-result.json": "e60cbe2d35f4eb80e01409bad6fc72341aa66c848c589404872ca02bcbe0396d"
+  },
+  "businessSourceFilesUnchanged": true,
+  "protectedSourceFileCount": 91,
+  "businessTestsExecutedThisTask": false,
+  "gitCommitOrPushThisTask": false,
+  "notes": [
+    "Model version is not inferred.",
+    "Historical and supplemental task dates are distinguished.",
+    "Selected prompt messages only, not a full conversation export.",
+    "Existing test results are cited, not rerun or rewritten."
+  ]
+}
