@@ -2,8 +2,10 @@
 
 [← 返回项目总 README](../README.md)
 
+状态更新：2026-10-19。第一阶段核心功能已实现，代码、技术文档、AI材料及对应测试证据已推送GitHub。当前运行方式和功能范围以[项目README](../README.md)为准；本文件保留各阶段设计与验证背景，未执行的迁移、数据库角色及部署验证不标为完成。
 
-设计日期：2026-10-15，按本轮正式修改规则修订。依据：requirements.md R01—R29、decisions.md 当前 D06 与 D13—D18。目标为三核心集合加 survey_versions；本文是目标 Schema，现有 init-schema.js 仍是旧三集合验证器，尚未升级。1.0.0已在专用库实现四集合验证器、索引及账号/草稿/Q04/Q05编辑业务，新入口为npm run db:init（apps/api/src/database/）；第一阶段发布/答卷/统计已实现，未知旧库迁移尚未执行，不能仅运行旧脚本得到下述能力。详见[实现边界](implementation-verification.md)。
+
+设计日期：2026-10-15，按本轮正式修改规则修订。依据：requirements.md R01—R29、decisions.md 当前 D06 与 D13—D18。目标为三核心集合加 survey_versions；本文说明现行四集合Schema；init-schema.js保留为旧三集合脚本，不作为新版初始化入口。1.0.0已在专用库实现四集合验证器、索引及账号/草稿/Q04/Q05编辑业务，新入口为npm run db:init（apps/api/src/database/）；第一阶段发布/答卷/统计已实现，未知旧库迁移尚未执行，不能仅运行旧脚本得到下述能力。详见[实现边界](implementation-verification.md)。
 
 ## 1 集合与关系
 
@@ -100,7 +102,7 @@ usernameKey 由后端生成，唯一索引防止并发注册重名。用户接�
 
 文本题的 jumpRules 必须为空；本版不实现文本跳转。规则按数组顺序执行，第一条满足即确定下一题；未命中或可选题未回答，进入下一题。仅允许目标位于当前题后面，最后一道题之后进入提交页面，不用伪造结束题 ID。
 
-数据库验证器检查规则对象形状；后端拒绝不适用的运算符及空条件集合。按现行API，保存草稿时检查选项/目标引用和向后关系并以validationIssues反馈，形状合法的失效引用允许保存；正式发布前须全部修复（发布接口本轮未实现）。规则使用受控运算符解释，不能把用户配置当作 JavaScript、eval 或任意 MongoDB 查询执行。
+数据库验证器检查规则对象形状；后端拒绝不适用的运算符及空条件集合。按现行API，保存草稿时检查选项/目标引用和向后关系并以validationIssues反馈，形状合法的失效引用允许保存；正式发布前须全部修复（发布接口已实现，并在发布前执行完整检查）。规则使用受控运算符解释，不能把用户配置当作 JavaScript、eval 或任意 MongoDB 查询执行。
 
 ## 7 responses 字段
 
@@ -191,7 +193,7 @@ db.responses.aggregate([
 - `database/examples.js`：所有基础题型和三类跳转的完整 BSON 示例，只定义变量，不自动入库；密码与 hash 为明确占位符，不能用于真实登录或真实幂等校验。
 - `database/verify-schema.js`：只接受名称以 survey_schema_check_ 开头的空数据库，验证字段、类型、重复限制、幂等索引和数字聚合。测试样例保留供查看，不清库。
 
-以下命令仅初始化现存旧三集合，不包含survey_versions和新增字段；在新设计下不得把其成功当成新版就绪。后续应先编写独立migration-002和新版初始化入口（本轮未实现），不要直接以旧脚本覆盖新验证器。旧格式检查的用法保留供复核：
+以下命令仅初始化现存旧三集合，不包含survey_versions和新增字段；在新设计下不得把其成功当成新版就绪。当前新版初始化入口已实现为`npm run db:init`；独立migration-002及未知旧库迁移仍未落实，不要直接以旧脚本覆盖新验证器。旧格式检查的用法保留供复核：
 
 ```powershell
 mongosh 'mongodb://127.0.0.1:27017/survey_project' --file database/init-schema.js
